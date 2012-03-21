@@ -1,0 +1,6 @@
+Repository for Verilog building blocks with a high chance of reuse
+across different hardware projects (e.g. debouncers, display
+drivers). This should not contain any sensitive data. Likewise, all
+modules should be written and maintained at an excellent quality using
+the best practices and sufficiently commented.
+-se
