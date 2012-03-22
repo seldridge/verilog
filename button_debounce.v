@@ -1,12 +1,26 @@
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Schuyler Eldridge
+////////////////////////////////////////////////////////////////////////////////
+// Schuyler Eldridge (schuyler.eldridge@gmail.com)
 // button_debounce.v
 // Created: 10/10/2009 
 //
 // Counter based debounce circuit originally written for EC551 (back
 // in the day).
-//////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// Copyright (C) 2009 Schuyler Eldridge, Boston University
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
+////////////////////////////////////////////////////////////////////////////////
+`timescale 1ns / 1ps
 module button_debounce(
                        input  clk,
                        input  button,
