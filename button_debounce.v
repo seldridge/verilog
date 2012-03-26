@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Schuyler Eldridge (schuyler.eldridge@gmail.com)
+// Original Author: Schuyler Eldridge
+// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
 // button_debounce.v
 // Created: 10/10/2009
 // Modified: 3/20/2012
@@ -28,6 +29,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ////////////////////////////////////////////////////////////////////////////////
+`timescale 1ns / 1ps
 module button_debounce(
                        input  clk,
                        input  button,
