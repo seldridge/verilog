@@ -14,7 +14,7 @@
 // desired debounce frequency. An alternative implementation would not
 // use a counter, but would use the shift register approach, looking
 // for repeated matches (say 5) on the button line.
-////////////////////////////////////////////////////////////////////////////////
+// 
 // Copyright (C) 2012 Schuyler Eldridge, Boston University
 //
 // This program is free software: you can redistribute it and/or modify
