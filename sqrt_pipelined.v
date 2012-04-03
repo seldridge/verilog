@@ -10,7 +10,10 @@
 // number of output bits in the computation. The input bits should be
 // a "nice" number such that the output bits can be reliably
 // determined using a "division" (/) operator. This operates only on
-// integers and will sustain a one-cycle / output throughput. 
+// integers and will sustain a one-cycle / output throughput. The
+// module includes a start signal that you can optionally assert when
+// you apply your input radicand. The root will then assert when for a
+// valid output OUTPUT_BITS cycles later.
 // 
 // Copyright (C) 2012 Schuyler Eldridge, Boston University
 //
@@ -44,7 +47,7 @@ module sqrt_pipelined
   localparam
     OUTPUT_BITS  = INPUT_BITS / 2; // number of output bits
   
-  reg [OUTPUT_BITS-1:0]         start_gen;
+  reg [OUTPUT_BITS-1:0]         start_gen; // data_ready propagation
   reg [OUTPUT_BITS*INPUT_BITS-1:0] root_gen; // root values
   reg [OUTPUT_BITS*INPUT_BITS-1:0] radicand_gen; // radicand values
   wire [OUTPUT_BITS*INPUT_BITS-1:0] mask_gen; // mask values
