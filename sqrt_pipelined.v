@@ -11,6 +11,7 @@
 // a "nice" number such that the output bits can be reliably
 // determined using a "division" (/) operator. This operates only on
 // integers and will sustain a one-cycle / output throughput. 
+// 
 // Copyright (C) 2012 Schuyler Eldridge, Boston University
 //
 // This program is free software: you can redistribute it and/or modify
