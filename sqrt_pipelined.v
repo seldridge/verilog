@@ -3,7 +3,7 @@
 // Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
 // sqrt_pipelined.v
 // Created: 4.2.2012
-// Modified: 4.2.2012
+// Modified: 4.3.2012
 //
 // Implements a fixed-point parameterized pipelined square root
 // operation. The number of stages in the pipeline is equal to the
