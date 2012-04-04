@@ -6,14 +6,17 @@
 // Modified: 4.3.2012
 //
 // Implements a fixed-point parameterized pipelined square root
-// operation. The number of stages in the pipeline is equal to the
-// number of output bits in the computation. The input bits should be
-// a "nice" number such that the output bits can be reliably
-// determined using a "division" (/) operator. This operates only on
-// integers and will sustain a one-cycle / output throughput. The
-// module includes a start signal that you can optionally assert when
-// you apply your input radicand. The root will then assert when for a
-// valid output OUTPUT_BITS cycles later.
+// operation on an unsigned input. The number of stages in the
+// pipeline is equal to the number of output bits in the
+// computation. The input bits should be a "nice" number such that the
+// output bits can be reliably determined using a "division" (/)
+// operator. This operates only on integers and will sustain a
+// one-cycle / output throughput. The module includes a start signal
+// that you can optionally assert when you apply your input
+// radicand. This signal will travel along with the radicand as it is
+// processed in the pipeline and will be output OUTPUT_BITS cycles
+// later as data_valid. This is entirely for record-keeping purposes
+// with other modules and can be used or not at your discretion.
 // 
 // Copyright (C) 2012 Schuyler Eldridge, Boston University
 //
@@ -35,7 +38,7 @@ module sqrt_pipelined
    input                        clk,
    input                        start,
    input [INPUT_BITS-1:0]       radicand,
-   output reg                   data_ready,
+   output reg                   data_valid,
    output reg [OUTPUT_BITS-1:0] root
    );
 
@@ -47,7 +50,7 @@ module sqrt_pipelined
   localparam
     OUTPUT_BITS  = INPUT_BITS / 2; // number of output bits
   
-  reg [OUTPUT_BITS-1:0]         start_gen; // data_ready propagation
+  reg [OUTPUT_BITS-1:0]         start_gen; // valid data propagation
   reg [OUTPUT_BITS*INPUT_BITS-1:0] root_gen; // root values
   reg [OUTPUT_BITS*INPUT_BITS-1:0] radicand_gen; // radicand values
   wire [OUTPUT_BITS*INPUT_BITS-1:0] mask_gen; // mask values
@@ -55,6 +58,20 @@ module sqrt_pipelined
   // assign the first two mask values (0x4000.... and 0x1000...)
   assign mask_gen[INPUT_BITS-1:0]  = 4 << 4 * (OUTPUT_BITS/2 - 1);
   assign mask_gen[INPUT_BITS*2-1:INPUT_BITS]  = 1 << 4 * (OUTPUT_BITS/2 - 1);
+
+  // This is the first stage of the pipeline. The comparison is
+  // simpler, but note the use of the first mask for this stage. 
+  always @ (posedge clk) begin
+    start_gen[0] <= start;
+    if ( mask_gen[INPUT_BITS-1:0] <= radicand ) begin
+      radicand_gen[INPUT_BITS-1:0] <= radicand - mask_gen[INPUT_BITS-1:0];
+      root_gen[INPUT_BITS-1:0] <= 16'h4000;
+    end
+    else begin
+      radicand_gen[INPUT_BITS-1:0] <= radicand;
+      root_gen[INPUT_BITS-1:0] <= 0;
+    end
+  end // always @ (posedge clk)
 
   // Main generate loop to create the masks and pipeline stages.
   generate
@@ -103,25 +120,11 @@ module sqrt_pipelined
     end // block: pipeline
   endgenerate
 
-  // This is the first stage of the pipeline. The comparison is
-  // simpler, but note the use of the first mask for this stage. 
-  always @ (posedge clk) begin
-    start_gen[0] <= start;
-    if ( mask_gen[INPUT_BITS-1:0] <= radicand ) begin
-      radicand_gen[INPUT_BITS-1:0] <= radicand - mask_gen[INPUT_BITS-1:0];
-      root_gen[INPUT_BITS-1:0] <= 16'h4000;
-    end
-    else begin
-      radicand_gen[INPUT_BITS-1:0] <= radicand;
-      root_gen[INPUT_BITS-1:0] <= 0;
-    end
-  end // always @ (posedge clk)
-
   // This is the final stage which just implements a rounding
   // operation. This stage could be tacked on as a combinational logic
   // stage, but who cares about latency, anyway?
   always @ (posedge clk) begin
-    data_ready <= start_gen[OUTPUT_BITS-1];
+    data_valid <= start_gen[OUTPUT_BITS-1];
     if (root_gen[OUTPUT_BITS*INPUT_BITS-1:OUTPUT_BITS*INPUT_BITS-INPUT_BITS] > root_gen[OUTPUT_BITS*INPUT_BITS-1:OUTPUT_BITS*INPUT_BITS-INPUT_BITS])
       root <= root_gen[OUTPUT_BITS*INPUT_BITS-1:OUTPUT_BITS*INPUT_BITS-INPUT_BITS] + 1;
     else
