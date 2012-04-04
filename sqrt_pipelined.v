@@ -46,9 +46,9 @@ module sqrt_pipelined
   // LEVEL MODULE. LOCAL CHANGES HERE WILL, MOST LIKELY, BE
   // OVERWRITTEN!
   parameter
-    INPUT_BITS   = 16; // number of input bits (should be power of 2)
+    INPUT_BITS   = 16; // number of input bits (any integer)
   localparam
-    OUTPUT_BITS  = INPUT_BITS / 2; // number of output bits
+    OUTPUT_BITS  = INPUT_BITS / 2 + INPUT_BITS % 2; // number of output bits
   
   reg [OUTPUT_BITS-1:0]         start_gen; // valid data propagation
   reg [OUTPUT_BITS*INPUT_BITS-1:0] root_gen; // root values
