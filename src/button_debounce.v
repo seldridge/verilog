@@ -78,9 +78,9 @@ module button_debounce
         COUNT: begin
           count <= count + 1;
         end
-      endcase // case (state)
-    end // else: !if(!reset_n)
-  end // always @ (posedge clk or negedge reset_n)
+      endcase 
+    end
+  end
 
   always @ * begin
     case (state)
@@ -88,7 +88,7 @@ module button_debounce
       FIRE:    next_state = COUNT;
       COUNT:   next_state = (count > COUNT_VALUE - 1) ? WAIT : state;
       default: next_state = WAIT;
-    endcase // case (state)
+    endcase
   end
 
-endmodule // button_debounce
+endmodule

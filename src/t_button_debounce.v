@@ -67,4 +67,4 @@ module t_button_debounce();
     #0.1 button  = ~button;
   end
   
-endmodule // t_button_debounce
+endmodule

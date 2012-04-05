@@ -76,7 +76,7 @@ module pipeline_registers
         always @ (posedge clk or negedge reset_n)
           pipe_gen[BIT_WIDTH*(i+1)-1:BIT_WIDTH*i] <= (!reset_n) ? 0 : pipe_gen[BIT_WIDTH*i-1:BIT_WIDTH*(i-1)];
       end
-    end // else: !if(NUMBER_OF_STAGES == 1)
+    end
   endgenerate
   
-endmodule // pipeline_registers
+endmodule

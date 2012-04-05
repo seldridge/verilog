@@ -66,8 +66,8 @@ module sqrt_pipelined
         radicand_gen[INPUT_BITS-1:0] <= radicand;
         root_gen[INPUT_BITS-1:0] <= 0;
       end
-    end // else: !if(!reset_n)
-  end // always @ (posedge clk)
+    end
+  end
 
   // Main generate loop to create the masks and pipeline stages.
   generate
@@ -124,10 +124,10 @@ module sqrt_pipelined
           else begin
 	    radicand_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)] <= radicand_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i];
 	    root_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)]     <= root_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] >> 1;
-          end // else: !if((root_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] +...
-        end // else: !if(!reset_n)
-      end // block: pipeline_stage
-    end // block: pipeline
+          end
+        end
+      end
+    end
   endgenerate
 
   // This is the final stage which just implements a rounding
@@ -145,6 +145,6 @@ module sqrt_pipelined
       else
         root  <= root_gen[OUTPUT_BITS*INPUT_BITS-1:OUTPUT_BITS*INPUT_BITS-INPUT_BITS];
     end
-  end // always @ (posedge clk or negedge reset_n)
+  end
 
 endmodule
