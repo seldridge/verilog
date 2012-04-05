@@ -30,11 +30,13 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns / 1ps
-module button_debounce(
-                       input  clk,
-                       input  button,
-                       output reg debounce
-                       );
+module button_debounce
+  (
+   input      clk,     // clock
+   input      reset_n, // asynchronous reset 
+   input      button,  // bouncy button
+   output reg debounce // debounced 1-cycle signal
+   );
   
   parameter
     CLK_FREQUENCY  = 66000000,
@@ -53,26 +55,32 @@ module button_debounce(
     FIRE         = 1,
     COUNT        = 2;
 
-  reg [1:0]                   state, next_state;
-  reg [25:0]                  count;
+  reg [1:0]   state, next_state;
+  reg [25:0]  count;
+  
+  always @ (posedge clk or negedge reset_n)
+    state <= (!reset_n) ? WAIT : next_state;
 
-  always @ (posedge clk)
-    state <= next_state;
-
-  always @ (posedge clk) begin
-    debounce <= 0;
-    count    <= 0;
-    case (state)
-      WAIT: begin
-      end
-      FIRE: begin
-        debounce <= 1;
-      end
-      COUNT: begin
-        count <= count + 1;
-      end
-    endcase // case (state)
-  end
+  always @ (posedge clk or negedge reset_n) begin
+    if (!reset_n) begin
+      debounce <= 0;
+      count    <= 0;
+    end
+    else begin
+      debounce <= 0;
+      count    <= 0;
+      case (state)
+        WAIT: begin
+        end
+        FIRE: begin
+          debounce <= 1;
+        end
+        COUNT: begin
+          count <= count + 1;
+        end
+      endcase // case (state)
+    end // else: !if(!reset_n)
+  end // always @ (posedge clk or negedge reset_n)
 
   always @ * begin
     case (state)
