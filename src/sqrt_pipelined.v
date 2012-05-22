@@ -132,7 +132,11 @@ module sqrt_pipelined
 
   // This is the final stage which just implements a rounding
   // operation. This stage could be tacked on as a combinational logic
-  // stage, but who cares about latency, anyway?
+  // stage, but who cares about latency, anyway? This is NOT a true
+  // rounding stage. In order to add convergent rounding, you need to
+  // increase the input bit width by 2 (increase the number of
+  // pipeline stages by 1) and implement rounding in the module that
+  // instantiates this one. 
   always @ (posedge clk or negedge reset_n) begin
     if (!reset_n) begin
       data_valid <= 0;
