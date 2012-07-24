@@ -25,7 +25,7 @@
 module t_button_debounce();
 
   parameter
-    CLK_FREQUENCY  = 66000000,
+    CLK_FREQUENCY  = 10_000_000,
     DEBOUNCE_HZ    = 2;
 
   reg clk, reset_n, button;

@@ -27,19 +27,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns / 1ps
 module pipeline_registers
+  #(
+    parameter 
+    BIT_WIDTH         = 10,
+    NUMBER_OF_STAGES  = 5
+    )
   (
    input                      clk,
    input                      reset_n,
    input [BIT_WIDTH-1:0]      pipe_in,
    output reg [BIT_WIDTH-1:0] pipe_out
    );
-
-  // WARNING!!! THESE PARAMETERS ARE INTENDED TO BE MODIFIED IN A TOP
-  // LEVEL MODULE. LOCAL CHANGES HERE WILL, MOST LIKELY, BE
-  // OVERWRITTEN!
-  parameter 
-    BIT_WIDTH         = 10,
-    NUMBER_OF_STAGES  = 5;
 
   // Main generate function for conditional hardware instantiation
   generate

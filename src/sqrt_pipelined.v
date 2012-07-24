@@ -27,6 +27,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns / 1ps
 module sqrt_pipelined
+  #(
+    parameter
+    INPUT_BITS   = 16 // number of input bits (any integer)
+    )
   (
    input                        clk,        // clock
    input                        reset_n,    // asynchronous reset
@@ -36,11 +40,6 @@ module sqrt_pipelined
    output reg [OUTPUT_BITS-1:0] root        // unsigned root 
    );
 
-  // WARNING!!! THESE PARAMETERS ARE INTENDED TO BE MODIFIED IN A TOP
-  // LEVEL MODULE. LOCAL CHANGES HERE WILL, MOST LIKELY, BE
-  // OVERWRITTEN!
-  parameter
-    INPUT_BITS   = 16; // number of input bits (any integer)
   localparam
     OUTPUT_BITS  = INPUT_BITS / 2 + INPUT_BITS % 2; // number of output bits
   

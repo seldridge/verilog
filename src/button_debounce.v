@@ -31,24 +31,26 @@
 ////////////////////////////////////////////////////////////////////////////////
 `timescale 1ns / 1ps
 module button_debounce
+  #(
+    parameter
+    CLK_FREQUENCY  = 10_000_000,
+    DEBOUNCE_HZ    = 2
+    // These parameters are specified such that you can choose any power
+    // of 2 frequency for a debouncer between 1 Hz and
+    // CLK_FREQUENCY. Note, that this will throw errors if you choose a
+    // non power of 2 frequency (i.e. count_value evaluates to some
+    // number / 3 which isn't interpreted as a logical right shift). I'm
+    // assuming this will not work for DEBOUNCE_HZ values less than 1,
+    // however, I'm uncertain of the value of a debouncer for fractional
+    // hertz button presses.
+    )
   (
    input      clk,     // clock
    input      reset_n, // asynchronous reset 
    input      button,  // bouncy button
    output reg debounce // debounced 1-cycle signal
    );
-  
-  parameter
-    CLK_FREQUENCY  = 66000000,
-    DEBOUNCE_HZ    = 2;
-  // These parameters are specified such that you can choose any power
-  // of 2 frequency for a debouncer between 1 Hz and
-  // CLK_FREQUENCY. Note, that this will throw errors if you choose a
-  // non power of 2 frequency (i.e. count_value evaluates to some
-  // number / 3 which isn't interpreted as a logical right shift). I'm
-  // assuming this will not work for DEBOUNCE_HZ values less than 1,
-  // however, I'm uncertain of the value of a debouncer for fractional
-  // hertz button presses.
+
   localparam
     COUNT_VALUE  = CLK_FREQUENCY / DEBOUNCE_HZ,
     WAIT         = 0,
