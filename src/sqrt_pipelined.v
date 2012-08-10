@@ -29,7 +29,8 @@
 module sqrt_pipelined
   #(
     parameter
-    INPUT_BITS   = 16 // number of input bits (any integer)
+    INPUT_BITS   = 16, // number of input bits (any integer)
+    OUTPUT_BITS  = INPUT_BITS / 2 + INPUT_BITS % 2; // number of output bits
     )
   (
    input                        clk,        // clock
@@ -39,9 +40,6 @@ module sqrt_pipelined
    output reg                   data_valid, // optional data valid signal
    output reg [OUTPUT_BITS-1:0] root        // unsigned root 
    );
-
-  localparam
-    OUTPUT_BITS  = INPUT_BITS / 2 + INPUT_BITS % 2; // number of output bits
   
   reg [OUTPUT_BITS-1:0]         start_gen; // valid data propagation
   reg [OUTPUT_BITS*INPUT_BITS-1:0] root_gen; // root values
