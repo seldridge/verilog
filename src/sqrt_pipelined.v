@@ -30,7 +30,7 @@ module sqrt_pipelined
   #(
     parameter
     INPUT_BITS   = 16, // number of input bits (any integer)
-    OUTPUT_BITS  = INPUT_BITS / 2 + INPUT_BITS % 2; // number of output bits
+    OUTPUT_BITS  = INPUT_BITS / 2 + INPUT_BITS % 2 // number of output bits
     )
   (
    input                        clk,        // clock
