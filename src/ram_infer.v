@@ -7,9 +7,9 @@
 // example by Eric Johnson and Prof. Derek Chiou at UT Austin (see
 // http://users.ece.utexas.edu/~derek/code/BRAM.v). Tested by
 // inspection of simulated RTL schematic as this successfully infers
-// block RAM. Oddly, this also adds flops at the output. I expect that
-// this may be because the available block RAM has an asynchronous
-// read.
+// block RAM. The parameter SYNC_OUTPUT determines whether output
+// flops are enabled (synchronous output) or disabled (asynchronous
+// output).
 // 
 // Copyright (C) 2012 Schuyler Eldridge, Boston University
 //
@@ -32,7 +32,8 @@ module ram_infer
     WIDTH = 8,
     DEPTH = 64,
     LG_DEPTH = 6,
-    INIT_VAL = 8'd0
+    INIT_VAL = 8'd0,
+    SYNC_OUTPUT = 1
     )
   (
    input                  clka, clkb, wea, web, ena, enb,
@@ -44,8 +45,9 @@ module ram_infer
   reg [WIDTH-1:0]         ram [DEPTH-1:0];
   reg [WIDTH-1:0]         doa, dob;
 
+  genvar                  i;
+
   generate
-    genvar                i;
     for (i=0; i<DEPTH; i=i+1) begin: gen_init
       initial begin
         ram[i]  = INIT_VAL;
@@ -53,18 +55,34 @@ module ram_infer
     end
   endgenerate
 
-  always @(posedge clka) begin
-    if (ena) begin
-      if (wea) ram[addra] <= dina;
-      douta               <= ram[addra];
+  generate
+    always @(posedge clka) begin
+      if (ena) begin
+        if (wea) 
+          ram[addra] <= dina;
+        if (SYNC_OUTPUT)
+          douta <= ram[addra];
+      end
     end
-  end
+    if (!SYNC_OUTPUT) begin
+      always @*
+        douta  = ram[addra];
+    end
+  endgenerate
 
-  always @(posedge clkb) begin
-    if (enb) begin
-      if (web) ram[addrb] <= dinb;
-      doutb               <= ram[addrb];
+  generate
+    always @(posedge clkb) begin
+      if (enb) begin
+        if (web) 
+          ram[addrb] <= dinb;
+        if (SYNC_OUTPUT)
+          doutb               <= ram[addrb];
+      end
     end
-  end
+    if (!SYNC_OUTPUT) begin
+      always @*
+        doutb  = ram[addrb];
+    end
+  endgenerate
   
 endmodule
