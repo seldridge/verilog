@@ -7,9 +7,7 @@
 // example by Eric Johnson and Prof. Derek Chiou at UT Austin (see
 // http://users.ece.utexas.edu/~derek/code/BRAM.v). Tested by
 // inspection of simulated RTL schematic as this successfully infers
-// block RAM. The parameter SYNC_OUTPUT determines whether output
-// flops are enabled (synchronous output) or disabled (asynchronous
-// output).
+// block RAM.
 // 
 // Copyright (C) 2012 Schuyler Eldridge, Boston University
 //
@@ -32,8 +30,7 @@ module ram_infer
     WIDTH = 8,
     DEPTH = 64,
     LG_DEPTH = 6,
-    INIT_VAL = 8'd0,
-    SYNC_OUTPUT = 1
+    INIT_VAL = 8'd0
     )
   (
    input                  clka, clkb, wea, web, ena, enb,
@@ -55,36 +52,20 @@ module ram_infer
     end
   endgenerate
 
-  generate
-    always @(posedge clka) begin
-      if (ena) begin
-        if (wea) 
-          ram[addra] <= dina;
-        if (SYNC_OUTPUT)
-          douta <= ram[addra];
-      end
+  always @(posedge clka) begin
+    if (ena) begin
+      if (wea) 
+        ram[addra] <= dina;
+      douta <= ram[addra];
     end
-    if (!SYNC_OUTPUT) begin
-      always @*
-        if (ena)
-          douta  = ram[addra];
-    end
-  endgenerate
+  end
 
-  generate
-    always @(posedge clkb) begin
-      if (enb) begin
-        if (web) 
-          ram[addrb] <= dinb;
-        if (SYNC_OUTPUT)
-          doutb <= ram[addrb];
-      end
+  always @(posedge clkb) begin
+    if (enb) begin
+      if (web) 
+        ram[addrb] <= dinb;
+      doutb <= ram[addrb];
     end
-    if (!SYNC_OUTPUT) begin
-      always @*
-        if (enb)
-          doutb  = ram[addrb];
-    end
-  endgenerate
+  end
   
 endmodule
