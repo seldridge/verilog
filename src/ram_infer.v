@@ -66,7 +66,8 @@ module ram_infer
     end
     if (!SYNC_OUTPUT) begin
       always @*
-        douta  = ram[addra];
+        if (ena)
+          douta  = ram[addra];
     end
   endgenerate
 
@@ -76,12 +77,13 @@ module ram_infer
         if (web) 
           ram[addrb] <= dinb;
         if (SYNC_OUTPUT)
-          doutb               <= ram[addrb];
+          doutb <= ram[addrb];
       end
     end
     if (!SYNC_OUTPUT) begin
       always @*
-        doutb  = ram[addrb];
+        if (enb)
+          doutb  = ram[addrb];
     end
   endgenerate
   
