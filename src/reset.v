@@ -58,10 +58,10 @@ module reset
       )
   reset_flops
     (
-     .clk(user_clk),      // input clk
+     .clk(clk),           // input clk
      .reset_n(rst_n_in),  // convert to active low
      .pipe_in(1'b1),      // input is always 1
-     .pipe_out(reset_n)   // asynchronous reset output
+     .pipe_out(rst_n_out) // asynchronous reset output
      );
 
 endmodule
