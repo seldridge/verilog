@@ -35,6 +35,7 @@
 // Modification history :
 // 2013/12/10 : created
 //-----------------------------------------------------------------------------
+`include "pipeline_registers.v"
 module reset
   (
    input clk,       // input clock
