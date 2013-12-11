@@ -13,7 +13,7 @@
 // before. This has something to do with global function defintions in
 // the standard.
 //-----------------------------------------------------------------------------
-// Copyright (C) 2012 Schuyler Eldridge, Boston University
+// Copyright (C) 2013 Schuyler Eldridge, Boston University
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -87,4 +87,23 @@ generate\
 for (__random_width_i = 0; __random_width_i < width>>5; __random_width_i = __random_width_i + 1)\
 always #period f[32*(__random_width_i+1)-1:32*__random_width_i] = $random;\
 always #period f[width-1:32*(width>>5)] = $random;\
+endgenerate
+
+// Macro to generate a random varible of some width that changes with
+// some delay after a clock using the $random function. This is
+// intended to be used to create variable input data that does not
+// violate setup/hold times (i.e. you want data that changes HOLD_TIME
+// after clock rising edge).
+//   f:     output
+//   width: width of f
+//   clk:   clock
+//   delay: time after clk posedge when f changes
+genvar __random_width_clk_i;
+`define RANDOM_WIDTH_OFFSET(f, width, clk, delay) \
+generate\
+for (__random_width_clk_i = 0; __random_width_clk_i < width >> 5; __random_width_clk_i = __random_width_clk_i + 1)\
+always @ (posedge clk)\
+#delay f[32*(__random_width_clk_i+1)-1:32*__random_width_clk_i] = $random;\
+always @ (posedge clk)\
+#delay f[width-1:32*(width>>5)] = $random;\
 endgenerate
