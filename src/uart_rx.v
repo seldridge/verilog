@@ -1,4 +1,4 @@
-//--------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------
 // Original Author: Schuyler Eldridge (schuyler.eldridge@gmail.com)
 // File           : uart_rx.v
 // Created        : 08.09.2012
@@ -20,7 +20,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//--------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 //`define PARITY                          // enable parity bit (not implemented)
 module uart_rx
   #(
@@ -64,14 +64,17 @@ module uart_rx
           bit_count  <= 4'b0;
         end
         DATA: begin
-          tick_count <= (tick_count==TICKS_PER_BIT) ? 15'b0 : tick_count + 15'b1;
-          bit_count  <= (tick_count==TICKS_PER_BIT) ? bit_count + 1 : bit_count;
+          tick_count <= (tick_count==TICKS_PER_BIT-1) ? 15'b0 :
+                        tick_count + 15'b1;
+          bit_count  <= (tick_count==TICKS_PER_BIT-1) ? bit_count + 1 :
+                        bit_count;
         end
         VALID: begin
           tick_count <= tick_count + 15'b1;
         end
         STOP: begin
-          tick_count <= (tick_count==TICKS_PER_BIT) ? 15'b0 : tick_count + 15'b1;
+          tick_count <= (tick_count==TICKS_PER_BIT-1) ? 15'b0 :
+                        tick_count + 15'b1;
         end
         default: begin
           tick_count <= 15'b0;
@@ -97,7 +100,7 @@ module uart_rx
       case (state)
         IDLE: data_tmp       <= 8'bx;
         START: data_tmp      <= 8'bx;
-        DATA: if (tick_count == TICKS_PER_BIT) data_tmp[bit_count] <= rx;
+        DATA: if (tick_count == TICKS_PER_BIT-1) data_tmp[bit_count] <= rx;
         VALID: begin
           data  <= data_tmp;
           valid <= 1'b1;
@@ -111,10 +114,11 @@ module uart_rx
     case (state)
       IDLE: next_state     = (!rx)                              ? START : state;
       START: next_state    = (tick_count==HALF_TICKS_PER_BIT)   ? DATA : state;
-      DATA: next_state     = (tick_count==TICKS_PER_BIT&bit_count==NUM_BITS-1)?VALID:state;
+      DATA: next_state     = ((tick_count==TICKS_PER_BIT - 1) &
+                              (bit_count==NUM_BITS - 1))?VALID:state;
 //      PARITY: next_state   = () ? : state;
       VALID: next_state    = STOP;
-      STOP: next_state     = (tick_count==TICKS_PER_BIT)        ? IDLE : state;
+      STOP: next_state     = (tick_count==TICKS_PER_BIT-1)        ? IDLE : state;
       default: next_state  = IDLE;
     endcase
   end
