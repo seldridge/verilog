@@ -58,7 +58,7 @@ endfunction
 //   num_items: the number of items to be packed
 `define PACK(u_src, p_dest, width, num_items) \
 generate\
-for (genvar __pack_i = 0; __pack_i < (num_items); __pack_i = __pack_i + 1) begin : PACK\
+for (genvar __pack_i = 0; __pack_i < (num_items); __pack_i = __pack_i + 1) begin\
 assign p_dest[(width)*(__pack_i+1)-1:(width)*__pack_i] = u_src[__pack_i]; end\
 endgenerate
 
