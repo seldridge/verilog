@@ -50,6 +50,13 @@ function integer lg;
   end
 endfunction
 
+// Function to convert a fixed point number to a real
+function real fixed_to_real;
+  input x, binary_point;
+  real    fixed_to_real;
+  fixed_to_real  = $itor(f)/2**binary_point;
+endfunction
+
 // Macro to pack a 2D array into a 1D vector based on some number of
 // items each with a specified width.
 //   u_src:     unpacked source
