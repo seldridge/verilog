@@ -33,3 +33,5 @@ have issues.
 * `uart_rx.v` -- UART receiver.
 
 * `uart_tx.v` -- UART transmitter.
+
+* `div_pipelined.v` -- Pipelined division module (**largely untested**)
