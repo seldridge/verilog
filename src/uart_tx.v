@@ -72,19 +72,19 @@ module uart_tx
         IDLE: begin
           tx_bit    <= 1;
           ready     <= 1;
-          data_buf  <= 0;
+          data_buf  <= data;
           bit_count <= 0;
           clk_count <= 0;
         end
         INIT: begin
           tx_bit    <= 0;
           ready     <= 0;
-          data_buf  <= data;
+          data_buf  <= data_buf;
           bit_count <= 0;
           clk_count <= (clk_count == TICKS_PER_BIT-1) ? 12'b0 : clk_count + 12'b1;
         end
         TX: begin
-          tx_bit    <= data[bit_count];
+          tx_bit    <= data_buf[bit_count];
           ready     <= 0;
           data_buf  <= data_buf;
           bit_count <= (clk_count == TICKS_PER_BIT-1) ? bit_count+3'b1 : bit_count;

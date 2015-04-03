@@ -63,11 +63,10 @@ endfunction
 //   p_dst:     packed destination (obviously must be a wire)
 //   width:     the width of one unpacked item
 //   num_items: the number of items to be packed
-genvar __pack_i;
 `define PACK(u_src, p_dest, width, num_items) \
 generate\
-for (__pack_i = 0; __pack_i < (num_items); __pack_i = __pack_i + 1)\
-assign p_dest[(width)*(__pack_i+1)-1:(width)*__pack_i] = u_src[__pack_i];\
+for (genvar __pack_i = 0; __pack_i < (num_items); __pack_i = __pack_i + 1) begin\
+assign p_dest[(width)*(__pack_i+1)-1:(width)*__pack_i] = u_src[__pack_i]; end\
 endgenerate
 
 // Macro to unpack a 1D vector into a 2D array based on some number of
@@ -76,11 +75,10 @@ endgenerate
 //   u_dst:     unpacked destination (a wire)
 //   width:     the width of one unpacked item
 //   num_items: the number of items to be unpacked
-genvar __unpack_i;
 `define UNPACK(p_src, u_dest, width, num_items) \
 generate\
-for (__unpack_i = 0; __unpack_i < (num_items); __unpack_i = __unpack_i + 1)\
-assign u_dest[__unpack_i] = p_src[(width)*(__unpack_i+1)-1:(width)*__unpack_i];\
+for (genvar __unpack_i = 0; __unpack_i < (num_items); __unpack_i = __unpack_i + 1) begin\
+assign u_dest[__unpack_i] = p_src[(width)*(__unpack_i+1)-1:(width)*__unpack_i]; end\
 endgenerate
 
 // Macro to generate a random variable of some width using the $random
