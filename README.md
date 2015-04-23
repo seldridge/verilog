@@ -28,7 +28,11 @@ have issues.
   unnecessary in Verilog...)
 
 * `sqrt_pipelined.v` -- A pipelined implementation of a fixed point
-  square root.
+  square root. **Deprecated due to complexity and incorrect rounding**.
+
+* `sqrt_generic.v` -- A refactor of `sqrt_pipelined.v` into a cleaner
+  SystemVerilog syntax. This uses implicit truncation rounding and
+  will show a resulting bias towards negative infinity.
 
 * `uart_rx.v` -- UART receiver.
 
