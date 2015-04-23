@@ -62,15 +62,18 @@ module sqrt_generic
 
   generate
     genvar i;
+    // Generate all the masks
     for (i = 0; i < WIDTH_OUTPUT; i = i + 1) begin: mask
       if (i % 2)
         assign mask_gen[WIDTH_OUTPUT-i-1] = 4 << 4 * (i/2);
       else
         assign mask_gen[WIDTH_OUTPUT-i-1] = 1 << 4 * (i/2);
     end
+
+    // Handle the operations of each pipeline stage
     for (i = 0; i < WIDTH_OUTPUT; i = i + 1) begin: pipe_sqrt
       always_ff @ (posedge clk or negedge rst_n) begin
-        // Not the first stage (the default case)
+        // Logic for any stage which is not the first stage
         if (i > 0) begin
           if (root_gen[i-1] + mask_gen[i] <= radicand_gen[i-1]) begin
             radicand_gen[i] <= radicand_gen[i-1] - mask_gen[i] - root_gen[i-1];
@@ -82,7 +85,7 @@ module sqrt_generic
           end
         end
 
-        // First stage
+        // Logic specific to the first stage
         if (i == 0) begin
           if (mask_gen[i] <= radicand) begin
             radicand_gen[i] <= radicand - mask_gen[i];
@@ -93,8 +96,11 @@ module sqrt_generic
             root_gen[i] <= '0;
           end
         end
+
         // Reset condition
         if (!rst_n) begin
+          radicand_gen[i] <= '0;
+          root_gen[i] <= '0;
         end
       end
     end
