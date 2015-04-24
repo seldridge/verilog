@@ -36,12 +36,12 @@ module sqrt_generic
     FLAG_PIPELINE = 1 // Currently unused
     )
   (
-   input                         clk,       // clock
-   input                         rst_n,     // asynchronous reset
-   input                         valid_in,  // optional start signal
-   input [WIDTH_INPUT-1:0]       radicand,  // unsigned radicand
-   output reg                    valid_out, // optional data valid signal
-   output reg [WIDTH_OUTPUT-1:0] root       // unsigned root
+   input                      clk,       // clock
+   input                      rst_n,     // asynchronous reset
+   input                      valid_in,  // optional start signal
+   input [WIDTH_INPUT-1:0]    radicand,  // unsigned radicand
+   output                     valid_out, // optional data valid signal
+   output  [WIDTH_OUTPUT-1:0] root       // unsigned root
    );
 
   // Pass-though pipe that sends the input valid signal to the
@@ -56,9 +56,9 @@ module sqrt_generic
      .pipe_out(valid_out)
      );
 
-  logic [WIDTH_INPUT-1:0] root_gen [WIDTH_OUTPUT];
-  logic [WIDTH_INPUT-1:0] radicand_gen [WIDTH_OUTPUT];
-  logic [WIDTH_INPUT-1:0] mask_gen [WIDTH_OUTPUT];
+  reg [WIDTH_INPUT-1:0] root_gen [WIDTH_OUTPUT-1:0];
+  reg [WIDTH_INPUT-1:0] radicand_gen [WIDTH_OUTPUT-1:0];
+  wire [WIDTH_INPUT-1:0] mask_gen [WIDTH_OUTPUT-1:0];
 
   generate
     genvar i;
@@ -72,7 +72,7 @@ module sqrt_generic
 
     // Handle the operations of each pipeline stage
     for (i = 0; i < WIDTH_OUTPUT; i = i + 1) begin: pipe_sqrt
-      always_ff @ (posedge clk or negedge rst_n) begin
+      always @ (posedge clk or negedge rst_n) begin
         // Logic for any stage which is not the first stage
         if (i > 0) begin
           if (root_gen[i-1] + mask_gen[i] <= radicand_gen[i-1]) begin

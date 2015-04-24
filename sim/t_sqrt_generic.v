@@ -34,10 +34,11 @@ module t_sqrt_generic();
     WIDTH_INPUT = 16,
     WIDTH_OUTPUT = WIDTH_INPUT / 2 + WIDTH_INPUT % 2;
 
-  logic clk, rst_n, valid_in, valid_out;
-  logic [WIDTH_INPUT-1:0] radicand;
-  logic [WIDTH_INPUT-1:0] radicand_d;
-  logic [WIDTH_OUTPUT-1:0] root;
+  reg clk, rst_n, valid_in;
+  wire valid_out;
+  reg [WIDTH_INPUT-1:0] radicand;
+  wire [WIDTH_INPUT-1:0] radicand_d;
+  wire [WIDTH_OUTPUT-1:0] root;
 
   sqrt_generic
     #(.WIDTH_INPUT(WIDTH_INPUT),
@@ -68,19 +69,19 @@ module t_sqrt_generic();
     #5 rst_n = 1;
   end
 
-  always_ff @(posedge clk) begin
+  always @(posedge clk) begin
     radicand <= radicand + 1;
     valid_in <= 1;
     if (valid_out) begin
-      $display("%4d %4d", radicand_d, root);
-      if (radicand_d >= 484 && radicand_d <=528)
-        assert(root == 22)
-          else $error("Bad square root value for %d (found root of %d)",
-                      radicand_d, root);
+      if ($itor(root) - $floor($itor(radicand_d)) > 0)
+        $error("Bad square root value:\n  sqrt(%0d) = %0d (correct: %0.0f)",
+                 radicand_d, root, $floor($itor(radicand_d)));
+      // $display("%8d %8d", root, radicand_d);
     end
 
-    if (radicand_d >= 530)
+    if (radicand_d >= (1 << WIDTH_INPUT) - 1) begin
       $stop;
+    end
 
     // Reset case
     if (!rst_n) begin
