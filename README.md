@@ -31,8 +31,8 @@ have issues.
   square root. **Deprecated due to complexity and incorrect rounding**.
 
 * `sqrt_generic.v` -- A refactor of `sqrt_pipelined.v` into a cleaner
-  SystemVerilog syntax. This uses implicit truncation rounding and
-  will show a resulting bias towards negative infinity.
+  syntax. This uses implicit truncation rounding and will show a
+  resulting bias towards negative infinity.
 
 * `uart_rx.v` -- UART receiver.
 
