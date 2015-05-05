@@ -72,35 +72,36 @@ module sqrt_generic
 
     // Handle the operations of each pipeline stage
     for (i = 0; i < WIDTH_OUTPUT; i = i + 1) begin: pipe_sqrt
-      always @ (posedge clk or negedge rst_n) begin
-        // Logic for any stage which is not the first stage
-        if (i > 0) begin
-          if (root_gen[i-1] + mask_gen[i] <= radicand_gen[i-1]) begin
-            radicand_gen[i] <= radicand_gen[i-1] - mask_gen[i] - root_gen[i-1];
-            root_gen[i] <= (root_gen[i-1] >> 1) + mask_gen[i];
-          end
-          else begin
-            radicand_gen[i] <= radicand_gen[i-1];
-            root_gen[i] <= root_gen[i-1] >> 1;
-          end
-        end
-
-        // Logic specific to the first stage
-        if (i == 0) begin
-          if (mask_gen[i] <= radicand) begin
-            radicand_gen[i] <= radicand - mask_gen[i];
-            root_gen[i] <= mask_gen[i];
-          end
-          else begin
-            radicand_gen[i] <= radicand;
-            root_gen[i] <= '0;
-          end
-        end
-
+      always @ (posedge clk or negedge rst_n) begin: pipe_stage
         // Reset condition
         if (!rst_n) begin
           radicand_gen[i] <= '0;
           root_gen[i] <= '0;
+        end
+        else begin
+          // Logic for any stage which is not the first stage
+          if (i > 0) begin
+            if (root_gen[i-1] + mask_gen[i] <= radicand_gen[i-1]) begin
+              radicand_gen[i] <= radicand_gen[i-1] - mask_gen[i] - root_gen[i-1];
+              root_gen[i] <= (root_gen[i-1] >> 1) + mask_gen[i];
+            end
+            else begin
+              radicand_gen[i] <= radicand_gen[i-1];
+              root_gen[i] <= root_gen[i-1] >> 1;
+            end
+          end
+
+          // Logic specific to the first stage
+          if (i == 0) begin
+            if (mask_gen[i] <= radicand) begin
+              radicand_gen[i] <= radicand - mask_gen[i];
+              root_gen[i] <= mask_gen[i];
+            end
+            else begin
+              radicand_gen[i] <= radicand;
+              root_gen[i] <= '0;
+            end
+          end
         end
       end
     end
