@@ -75,8 +75,8 @@ module sqrt_generic
       always @ (posedge clk or negedge rst_n) begin: pipe_stage
         // Reset condition
         if (!rst_n) begin
-          radicand_gen[i] <= '0;
-          root_gen[i] <= '0;
+          radicand_gen[i] <= 0;
+          root_gen[i] <= 0;
         end
         else begin
           // Logic for any stage which is not the first stage
@@ -99,7 +99,7 @@ module sqrt_generic
             end
             else begin
               radicand_gen[i] <= radicand;
-              root_gen[i] <= '0;
+              root_gen[i] <= 0;
             end
           end
         end
