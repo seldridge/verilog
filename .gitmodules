@@ -1,0 +1,3 @@
+[submodule "submodules/hdl-scripts"]
+	path = submodules/hdl-scripts
+	url = https://github.com/seldridge/hdl-scripts
