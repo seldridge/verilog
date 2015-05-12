@@ -39,3 +39,27 @@ have issues.
 * `uart_tx.v` -- UART transmitter.
 
 * `div_pipelined.v` -- Pipelined division module (**largely untested**)
+
+## Submodules
+
+In an attempt at modularity, I'm now including a submodules directory
+which is intended to contain other repositories (of mine most likely,
+but not restricted as such) that are useful. These can be pulled in
+with:
+
+```
+git submodule init
+git submodule update
+```
+
+And recursively updated with:
+
+```
+git submodule foreach git pull origin master
+```
+
+* [hdl-scripts](https://github.com/seldridge/hdl-scripts) --
+  Basically, a dumping ground of scripts I've written that make
+  working with HDLs easier. For example, `addWavesRecursive.tcl` will
+  populate a GTKWave configuration with the module hierarchy found in
+  a VCD file.
