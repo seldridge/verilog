@@ -2,13 +2,13 @@
 // Original Author: Schuyler Eldridge (schuyler.eldridge@gmail.com)
 // File           : ram_infer.v
 // Created        : 08.15.2012
-// 
+//
 // Infers parameterized block RAM from behavioral syntax. Based off an
 // example by Eric Johnson and Prof. Derek Chiou at UT Austin (see
 // http://users.ece.utexas.edu/~derek/code/BRAM.v). Tested by
 // inspection of simulated RTL schematic as this successfully infers
 // block RAM.
-// 
+//
 // Copyright (C) 2012 Schuyler Eldridge, Boston University
 //
 // This program is free software: you can redistribute it and/or modify
@@ -34,11 +34,11 @@ module ram_infer
     )
   (
    input                  clka, clkb, wea, web, ena, enb,
-   input [LG_DEPTH-1:0]   addra, addrb, 
-   input [WIDTH-1:0]      dina, dinb, 
+   input [LG_DEPTH-1:0]   addra, addrb,
+   input [WIDTH-1:0]      dina, dinb,
    output reg [WIDTH-1:0] douta, doutb
    );
-  
+
   reg [WIDTH-1:0]         ram [DEPTH-1:0];
   reg [WIDTH-1:0]         doa, dob;
 
@@ -54,7 +54,7 @@ module ram_infer
 
   always @(posedge clka) begin
     if (ena) begin
-      if (wea) 
+      if (wea)
         ram[addra] <= dina;
       douta <= ram[addra];
     end
@@ -62,10 +62,10 @@ module ram_infer
 
   always @(posedge clkb) begin
     if (enb) begin
-      if (web) 
+      if (web)
         ram[addrb] <= dinb;
       doutb <= ram[addrb];
     end
   end
-  
+
 endmodule
