@@ -1,26 +1,8 @@
-////////////////////////////////////////////////////////////////////////////////
-// Original Author: Schuyler Eldridge
-// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// pipeline_registers.v
-// Created: 4.4.2012
-// Modified: 4.4.2012
-//
+// See LICENSE for license details.
+
 // Extension of original pipeline_registers.v that allows for a
 // synchronous set of all the internal registers.
-// Copyright (C) 2014 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns / 1ps
 module pipeline_registers_set
   #(

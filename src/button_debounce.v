@@ -1,34 +1,5 @@
-////////////////////////////////////////////////////////////////////////////////
-// Original Author: Schuyler Eldridge
-// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// button_debounce.v
-// Created: 10/10/2009
-// Modified: 3/20/2012
-//
-// Counter based debounce circuit originally written for EC551 (back
-// in the day) and then modified (i.e. chagned entirely) into 3 always
-// block format. This debouncer generates a signal that goes high for
-// 1 clock cycle after the clock sees an asserted value on the button
-// line. This action is then disabled until the counter hits a
-// specified count value that is determined by the clock frequency and
-// desired debounce frequency. An alternative implementation would not
-// use a counter, but would use the shift register approach, looking
-// for repeated matches (say 5) on the button line.
-// 
-// Copyright (C) 2012 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+// See LICENSE for license details.
+
 `timescale 1ns / 1ps
 module button_debounce
   #(
@@ -46,7 +17,7 @@ module button_debounce
     )
   (
    input      clk,     // clock
-   input      reset_n, // asynchronous reset 
+   input      reset_n, // asynchronous reset
    input      button,  // bouncy button
    output reg debounce // debounced 1-cycle signal
    );
@@ -59,7 +30,7 @@ module button_debounce
 
   reg [1:0]   state, next_state;
   reg [25:0]  count;
-  
+
   always @ (posedge clk or negedge reset_n)
     state <= (!reset_n) ? WAIT : next_state;
 
@@ -80,7 +51,7 @@ module button_debounce
         COUNT: begin
           count <= count + 1;
         end
-      endcase 
+      endcase
     end
   end
 

@@ -1,34 +1,13 @@
-////////////////////////////////////////////////////////////////////////////////
-// Original Author: Schuyler Eldridge
-// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// t_sqrt_pipelined.v
-// Created: 4.2.2012
-// Modified: 4.5.2012
-//
-// Testbench for generic sqrt operation
-// 
-// Copyright (C) 2012 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+// See LICENSE for license details.
+
 `timescale 1ns / 1ps
 module t_sqrt_pipelined();
 
-  parameter 
+  parameter
     INPUT_BITS  = 4;
   localparam
     OUTPUT_BITS  = INPUT_BITS / 2 + INPUT_BITS % 2;
-  
+
   reg [INPUT_BITS-1:0] radicand;
   reg                  clk, start, reset_n;
 
@@ -36,16 +15,16 @@ module t_sqrt_pipelined();
   wire                   data_valid;
 //  wire [7:0] root_good;
 
-  sqrt_pipelined 
+  sqrt_pipelined
     #(
       .INPUT_BITS(INPUT_BITS)
       )
-    sqrt_pipelined 
+    sqrt_pipelined
       (
        .clk(clk),
        .reset_n(reset_n),
        .start(start),
-       .radicand(radicand), 
+       .radicand(radicand),
        .data_valid(data_valid),
        .root(root)
        );
@@ -66,7 +45,7 @@ module t_sqrt_pipelined();
     #10 radicand  = radicand + 1; start = 1;
     #10 start     = 0;
   end
-  
+
 
 //  always begin
 //    #80 start  = 1;
@@ -74,4 +53,3 @@ module t_sqrt_pipelined();
 //  end
 
 endmodule
-

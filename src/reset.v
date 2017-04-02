@@ -1,13 +1,5 @@
-//-----------------------------------------------------------------------------
-// Title         : reset
-// Project       : verilog
-//-----------------------------------------------------------------------------
-// File          : reset.v
-// Author        : Schuyler Eldridge  <schuyler.eldridge@gmail.com>
-// Created       : 2013/12/10
-// Last modified : 2013/12/10
-//-----------------------------------------------------------------------------
-// Description :
+// See LICENSE for license details.
+
 // Implements a "good" reset signal that is asserted asynchronously
 // and deasserted synchronously. See Cliff Cummings work for the
 // reasoning behind this:
@@ -17,24 +9,7 @@
 //   Cummings, C., Millis, D., and Golson, S. "Asynchronous &
 //     synchronous reset design techniques-part deux." Synopsys Users
 //     Group Conference, 2003.
-//-----------------------------------------------------------------------------
-// Copyright (C) 2013 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//-----------------------------------------------------------------------------
-// Modification history :
-// 2013/12/10 : created
-//-----------------------------------------------------------------------------
+
 `include "pipeline_registers.v"
 module reset
   (

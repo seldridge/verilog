@@ -1,12 +1,5 @@
-//-----------------------------------------------------------------------------
-// Title         : CORDIC Unit (Circular)
-// Project       : verilog
-//-----------------------------------------------------------------------------
-// File          : cordic_cir.v
-// Author        : Schuyler Eldridge  <schuyler.eldridge@gmail.com>
-// Created       : 28.12.2013
-// Last modified : 28.12.2013
-//-----------------------------------------------------------------------------
+// See LICENSE for license details.
+
 // Description:
 // Pipelined implementation of the CORDIC vector rotation algorithm in circular
 // mode. The input is selected through an input "func" select line. Currently
@@ -17,21 +10,7 @@
 // Format is two's complement fixed point with 11 bits before the
 // binary point and 12 bits after e.g.:
 //   [ sign ][ 11 bits ].[ 12 bits ]
-//-----------------------------------------------------------------------------
-// Copyright (c) 2013 by Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns/1ps
 `include "pipeline_registers.v"
 module cordic_cir

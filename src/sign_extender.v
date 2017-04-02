@@ -1,26 +1,7 @@
-////////////////////////////////////////////////////////////////////////////////
-// Original Author: Schuyler Eldridge
-// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// sign_extender.v
-// Created: 5.16.2012
-// Modified: 5.16.2012
-//
+// See LICENSE for license details.
+
 // Generic sign extension module
-//
-// Copyright (C) 2012 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns/1ps
 module sign_extender
   #(

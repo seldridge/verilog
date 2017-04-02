@@ -1,26 +1,9 @@
-//-------------------------------------------------------------------------------
-// Original Author: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// File           : uart_rx.v
-// Created        : 08.09.2012
-//
+// See LICENSE for license details.
+
 // Uart receiver module. Reads data from a serial UART line (rx) and
 // outputs it over a parallel bus (data) based on the clock frequency
 // of the FPGA and the anticipated UART frequency.
-//
-// Copyright (C) 2015 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//------------------------------------------------------------------------------
+
 //`define PARITY                          // enable parity bit (not implemented)
 module uart_rx
   #(

@@ -1,28 +1,11 @@
-//--------------------------------------------------------------------------------
-// Original Author: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// File           : ram_infer.v
-// Created        : 08.15.2012
-//
+// See LICENSE for license details.
+
 // Infers parameterized block RAM from behavioral syntax. Based off an
 // example by Eric Johnson and Prof. Derek Chiou at UT Austin (see
 // http://users.ece.utexas.edu/~derek/code/BRAM.v). Tested by
 // inspection of simulated RTL schematic as this successfully infers
 // block RAM.
-//
-// Copyright (C) 2012 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//--------------------------------------------------------------------------------
+
 `timescale 1ns/1ps
 module ram_infer
   #(

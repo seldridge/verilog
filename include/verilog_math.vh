@@ -1,35 +1,9 @@
-//-----------------------------------------------------------------------------
-// Title         : verilog_math
-// Project       : verilog
-//-----------------------------------------------------------------------------
-// File          : verilog_math.vh
-// Author        : Schuyler Eldridge  <schuyler.eldridge@gmail.com>
-// Created       : 2013/11/25
-// Last modified : 2013/12/05
-//-----------------------------------------------------------------------------
-// Description :
+// See LICENSE for license details.
+
 // Helper math functions to make my Verilog coding life easier. This
 // must be included INSIDE in the module/endmodule region, not
 // before. This has something to do with global function defintions in
 // the standard.
-//-----------------------------------------------------------------------------
-// Copyright (C) 2015 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//------------------------------------------------------------------------------
-// Modification history :
-// 2013/11/25 : created
-//-----------------------------------------------------------------------------
 
 // A Xilinx implementation of the base 2 logarithm. This is very
 // useful when assigning port widths based on parameters.

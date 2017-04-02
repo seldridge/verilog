@@ -1,21 +1,5 @@
-//-----------------------------------------------------------------------------
-// Title         : Testbench for pipeline_registers_set.v
-// Project       : verilog
-//-----------------------------------------------------------------------------
-// File          : t_pipeline_registers_set.v
-// Author        : Eldridge  <schuyler.eldridge@gmail.com>
-// Created       : 2014/04/19
-// Last modified : 2014/04/19
-//-----------------------------------------------------------------------------
-// Description :
-//-----------------------------------------------------------------------------
-// Copyright (c) 2014 by Boston University This model is the confidential and
-// proprietary property of Boston University and the possession or use of this
-// file requires a written license from Boston University.
-//------------------------------------------------------------------------------
-// Modification history :
-// 2014/04/19 : created
-//-----------------------------------------------------------------------------
+// See LICENSE for license details.
+
 `timescale 1ns/1ps
 `include "pipeline_registers_set.v"
 module t_pipeline_registers_set();

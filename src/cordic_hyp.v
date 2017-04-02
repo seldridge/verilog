@@ -1,9 +1,5 @@
-////////////////////////////////////////////////////////////////////////////////
-// Original Author: Schuyler Eldridge
-// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// cordic_hyp.v
-// Created: 7.26.2012
-//
+// See LICENSE for license details.
+
 // Pipelined implementation of the CORDIC vector rotation algorithm in
 // hyperbolic mode.
 //
@@ -19,21 +15,7 @@
 //   |       ln | s3210.6543210 | [s][.876543210 |
 //   --------------------------------------------
 // >>>>> actually: [sign][11 bits].[12 bits]
-//-----------------------------------------------------------------------------
-// Copyright (c) 2013 by Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+
 `include "pipeline_registers.v"
 `include "sign_extender.v"
 module cordic_hyp

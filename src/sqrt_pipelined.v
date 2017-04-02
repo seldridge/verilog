@@ -1,30 +1,11 @@
-////////////////////////////////////////////////////////////////////////////////
-// Original Author: Schuyler Eldridge
-// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// sqrt_pipelined.v
-// Created: 4.2.2012
-// Modified: 4.5.2012
-//
+// See LICENSE for license details.
+
 // Implements a fixed-point parameterized pipelined square root
 // operation on an unsigned input of any bit length. The number of
 // stages in the pipeline is equal to the number of output bits in the
 // computation. This pipelien sustains a throughput of one computation
 // per clock cycle.
-// 
-// Copyright (C) 2012 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns / 1ps
 module sqrt_pipelined
   #(
@@ -38,9 +19,9 @@ module sqrt_pipelined
    input                        start,      // optional start signal
    input [INPUT_BITS-1:0]       radicand,   // unsigned radicand
    output reg                   data_valid, // optional data valid signal
-   output reg [OUTPUT_BITS-1:0] root        // unsigned root 
+   output reg [OUTPUT_BITS-1:0] root        // unsigned root
    );
-  
+
   reg [OUTPUT_BITS-1:0]         start_gen; // valid data propagation
   reg [OUTPUT_BITS*INPUT_BITS-1:0] root_gen; // root values
   reg [OUTPUT_BITS*INPUT_BITS-1:0] radicand_gen; // radicand values
@@ -71,13 +52,13 @@ module sqrt_pipelined
     genvar i;
     // Generate all the mask values. These are built up in the
     // following fashion:
-    // LAST MASK:  0x00...001 
+    // LAST MASK:  0x00...001
     //             0x00...004  Increasing # OUTPUT_BITS
     //             0x00...010          |
     //             0x00...040          v
     //                 ...
     // FIRST MASK: 0x10...000  # masks == # OUTPUT_BITS
-    // 
+    //
     // Note that the first mask used can either be of the 0x1... or
     // 0x4... variety. This is purely determined by the number of
     // computation stages. However, the last mask used will always be
@@ -110,12 +91,12 @@ module sqrt_pipelined
         end
         else begin
           start_gen[i+1] <= start_gen[i];
-          if ((root_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] + 
+          if ((root_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] +
                mask_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)]) <= radicand_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i]) begin
-	    radicand_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)] <= radicand_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] - 
-                                                                 mask_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)] - 
+	    radicand_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)] <= radicand_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] -
+                                                                 mask_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)] -
                                                                  root_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i];
-	    root_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)] <= (root_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] >> 1) + 
+	    root_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)] <= (root_gen[INPUT_BITS*(i+1)-1:INPUT_BITS*i] >> 1) +
                                                              mask_gen[INPUT_BITS*(i+2)-1:INPUT_BITS*(i+1)];
           end
           else begin
@@ -133,7 +114,7 @@ module sqrt_pipelined
   // rounding stage. In order to add convergent rounding, you need to
   // increase the input bit width by 2 (increase the number of
   // pipeline stages by 1) and implement rounding in the module that
-  // instantiates this one. 
+  // instantiates this one.
   always @ (posedge clk or negedge reset_n) begin
     if (!reset_n) begin
       data_valid <= 0;

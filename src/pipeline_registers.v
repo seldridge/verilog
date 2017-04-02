@@ -1,34 +1,16 @@
-////////////////////////////////////////////////////////////////////////////////
-// Original Author: Schuyler Eldridge
-// Contact Point: Schuyler Eldridge (schuyler.eldridge@gmail.com)
-// pipeline_registers.v
-// Created: 4.4.2012
-// Modified: 4.4.2012
-//
+// See LICENSE for license details.
+
 // Implements a series of pipeline registers specified by the input
 // parameters BIT_WIDTH and NUMBER_OF_STAGES. BIT_WIDTH determines the
 // size of the signal passed through each of the pipeline
 // registers. NUMBER_OF_STAGES is the number of pipeline registers
 // generated. This accepts values of 0 (yes, it just passes data from
 // input to output...) up to however many stages specified.
-// Copyright (C) 2012 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-////////////////////////////////////////////////////////////////////////////////
+
 `timescale 1ns / 1ps
 module pipeline_registers
   #(
-    parameter 
+    parameter
     BIT_WIDTH         = 10,
     NUMBER_OF_STAGES  = 5
     )
@@ -76,5 +58,5 @@ module pipeline_registers
       end
     end
   endgenerate
-  
+
 endmodule

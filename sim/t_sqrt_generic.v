@@ -1,32 +1,5 @@
-//-----------------------------------------------------------------------------
-// Title         : Testbench for sqrt_generic.v
-// Project       : verilog
-//-----------------------------------------------------------------------------
-// File          : t_sqrt_generic.v
-// Author        : Eldridge  <schuye@celnode06.ad.bu.edu>
-// Created       : 2015/04/23
-// Last modified : 2015/04/23
-//-----------------------------------------------------------------------------
-// Description :
-//
-//-----------------------------------------------------------------------------
-// Copyright (C) 2015 Schuyler Eldridge, Boston University
-//
-// This program is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>.
-//------------------------------------------------------------------------------
-// Modification history :
-// 2015/04/23 : created
-//-----------------------------------------------------------------------------
+// See LICENSE for license details.
+
 `timescale 1ns/1ps
 `include "sqrt_generic.v"
 module t_sqrt_generic();
