@@ -58,7 +58,7 @@ And recursively updated with:
 git submodule foreach git pull origin master
 ```
 
-* [hdl-scripts](https://github.com/seldridge/hdl-scripts) --
+* [hdl-tools](https://github.com/ibm/hdl-tools) --
   Basically, a dumping ground of scripts I've written that make
   working with HDLs easier. For example, `addWavesRecursive.tcl` will
   populate a GTKWave configuration with the module hierarchy found in
